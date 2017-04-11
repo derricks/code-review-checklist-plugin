@@ -1,0 +1,23 @@
+{
+  "checklist": [
+    {
+      "name": "Commit messages conform to standards",
+      "description": "Well-formatted commit messages make it easy to quickly scan commit history and provide clear, concise information to the reader."
+    },
+    {
+      "name": "Mutable data shared across threads is protected from concurrent modifications.",
+      "description": "Whenever you have data that can be changed by different threads, you need to use your language's constructs to prevent concurrent modifications."
+    },
+    {
+      "name": "Data is immutable wherever possible.",
+      "description": "Data that is guaranteed to never change is thread-safe and easier to reason about when debugging."
+    },
+    {
+      "name": "Public methods check the validity of all their arguments at the beginning of the method.",
+      "description": "Public methods have to act defensively and assume they'll get passed any range of garbage values. Checking early means that no state changes happen unless the input is all valid."
+    },
+    {
+      "name": "All names are descriptive."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "Code Review Checklist",
+  "description": "Maintain checklists derived from a template to make code reviews more efficient and effeective",
+  "version":"0.1.0",
+  "browser_action": {
+    "default_popup": "per_checklist_ui.html"
+  },
+  "permissons": [
+    "activeTab",
+    "http://*/*",
+    "https://*/*",
+    "storage"
+  ]
