@@ -18,6 +18,15 @@
     },
     {
       "name": "All names are descriptive."
+    },
+    {
+      "name": "Open connections are closed in the same place",
+      "description": "If you open a connection, you should close it. And you should close it in the same block of code that opens it (versus, say, passing it to another method). Use your language's equivalent of Java's finally block"
+    },
+    {
+      "name": "Calls to remote services at a minimum have a timeout. Same with joins or waits on threads.",
+      "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern"
     }
+
   ]
 }
