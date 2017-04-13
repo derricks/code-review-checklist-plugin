@@ -6,9 +6,10 @@
   "browser_action": {
     "default_popup": "per_checklist_ui.html"
   },
-  "permissons": [
+  "permissions": [
     "activeTab",
     "http://*/*",
     "https://*/*",
     "storage"
   ]
+}
