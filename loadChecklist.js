@@ -26,13 +26,13 @@ const loader = {
     *  @param {Element}  div element to hold the checklist items
     */
     loadChecklistFromJSON: function(json, checklistElem) {
-      for (checklistItem in json.checklist) {
-        console.log(json.checklist[checklistItem]);
+      if (json.checklist == undefined) {
+        return;
       }
+
+      json.checklist.forEach( item => console.log(item));
     }
 }
-
-console.log('plugin')
 
 //loader.clearChecklistDiv();
 loader.loadChecklistForURL() // todo: add URL
