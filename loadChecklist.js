@@ -46,7 +46,7 @@ const loader = {
 
        const checkboxElem = loader.getTdWrappedElement(loader.createCheckboxForChecklistItem(checklistItem));
        const textElem = loader.getTdWrappedElement(loader.createTextForChecklistItem(checklistItem));
-       
+
        tableRowElem.append(checkboxElem);
        tableRowElem.append(textElem);
        tableElem.append(tableRowElem);
@@ -73,6 +73,9 @@ const loader = {
        createTextForChecklistItem: function(checklistItem) {
          const textDivElem = document.createElement('div');
          const itemText = document.createTextNode(checklistItem.name);
+         if (checklistItem.description != undefined) {
+           textDivElem.setAttribute('title', checklistItem.description);
+         }
          textDivElem.append(itemText);
          return textDivElem;
        },
