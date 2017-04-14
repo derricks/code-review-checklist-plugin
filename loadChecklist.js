@@ -67,7 +67,11 @@ const loader = {
       createCheckboxForChecklistItem: function(checklistItem) {
         const checkboxElem = document.createElement('input');
         checkboxElem.id = checklistItem.name;
-        checkboxElem.setAttribute("type", "checkbox")
+        checkboxElem.setAttribute('type', 'checkbox');
+        if (checklistItem.checked) {
+          checkboxElem.setAttribute('checked', 'checked');
+        }
+
         return checkboxElem;
       },
 
