@@ -40,6 +40,11 @@ const loader = {
      *  @return {Element} DOM element that can be appended
      */
      renderChecklistItem: function(checklistItem, containerElem) {
+       // validate data
+       if (checklistItem == undefined || checklistItem.name == undefined) {
+         return document.createElement('div');
+       }
+
        const itemElem = document.createElement('div');
        const tableElem = document.createElement('table');
        const tableRowElem = document.createElement('tr');
