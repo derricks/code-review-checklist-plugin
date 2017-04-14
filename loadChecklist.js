@@ -72,7 +72,7 @@ const loader = {
           checkboxElem.setAttribute('checked', 'checked');
         }
 
-        return checkboxElem;
+        return checkboxElem;;
       },
 
       /** Create the text for the given checklist item.
@@ -80,13 +80,17 @@ const loader = {
        *  @return {Element} a DOM element containing the text for the checklist item
        */
        createTextForChecklistItem: function(checklistItem) {
+         const labelElem = document.createElement('label')
+         labelElem.setAttribute('for', checklistItem.name);
+
          const textDivElem = document.createElement('div');
          const itemText = document.createTextNode(checklistItem.name);
          if (checklistItem.description != undefined) {
            textDivElem.setAttribute('title', checklistItem.description);
          }
          textDivElem.append(itemText);
-         return textDivElem;
+         labelElem.append(textDivElem);
+         return labelElem;
        },
 
        /** Wrap the given element in a td element.
