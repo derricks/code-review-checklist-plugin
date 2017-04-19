@@ -7,28 +7,12 @@
 
 const loader = {
 
-  /** Loads the checklist for the URL.
-   *  @param {String} the URL to load for
-   *  @param {Element} the div that will contain the checklist items
-   */
-   loadChecklistForURL: function(url, checklistElem) {
-     // determine if the URL is a key in the storage
-
-     // determine if the URL is a prefix of a key in storage
-
-     // configure a copy of the master template for this URL
-
-     fetch(chrome.extension.getURL('master_template.json')).then( response =>
-       response.json().then(
-         json => loader.loadChecklistFromJSON(json, checklistElem)));
-   },
-
    /** Populate the given checklist div from a JSON blob
     *  @param {Object} json structure to use when populating the data
-    *  @param {Element}  div element to hold the checklist items
+    *  @param {Element} checklistElem element to hold the checklist items
     */
     loadChecklistFromJSON: function(json, checklistElem) {
-      if (json.checklist == undefined) {
+      if (!json.checklist) {
         return;
       }
 
@@ -36,8 +20,8 @@ const loader = {
     },
 
     /** For a given checklist item, generate the appropriate view in the Element.
-     *  @param {Object} json representing the checklist item to render
-     *  @return {Element} DOM element that can be appended
+     *  @param {Object} checklistItem JSON representing the checklist item to render
+     *  @return {Element} containerElem element that can be appended
      */
      renderChecklistItem: function(checklistItem, containerElem) {
        // validate data
@@ -46,6 +30,7 @@ const loader = {
        }
 
        const itemElem = document.createElement('div');
+       itemElem.setAttribute('class', loader.constants.CHECKLIST_ITEM_CLASS);
        const tableElem = document.createElement('table');
        const tableRowElem = document.createElement('tr');
 
@@ -61,13 +46,16 @@ const loader = {
      },
 
      /** Create the checkbox Element for the given checklistItem.
-      *  @ param {Object} json representing the checklistItem
-      *  @ return Element representing the checkbox
+      *  @param {Object} checklistItem json representing the checklist item's data
+      *  @return {Element} element representing the checkbox
       */
       createCheckboxForChecklistItem: function(checklistItem) {
         const checkboxElem = document.createElement('input');
         checkboxElem.id = checklistItem.name;
         checkboxElem.setAttribute('type', 'checkbox');
+        checkboxElem.setAttribute('class', 'checkbox');
+        checkboxElem.addEventListener('change', saveChecklist);
+
         if (checklistItem.checked) {
           checkboxElem.setAttribute('checked', 'checked');
         }
@@ -75,35 +63,91 @@ const loader = {
         return checkboxElem;;
       },
 
-      /** Create the text for the given checklist item.
-       *  @param {Object} the json representing the checklist item
-       *  @return {Element} a DOM element containing the text for the checklist item
-       */
-       createTextForChecklistItem: function(checklistItem) {
-         const labelElem = document.createElement('label')
-         labelElem.setAttribute('for', checklistItem.name);
+    /** Create the text for the given checklist item.
+     *  @param {Object} checklistItem the json representing the checklist item
+     *  @return {Element} a DOM element containing the text for the checklist item
+     */
+     createTextForChecklistItem: function(checklistItem) {
+       const labelElem = document.createElement('label')
+       labelElem.setAttribute('for', checklistItem.name);
 
-         const textDivElem = document.createElement('div');
-         const itemText = document.createTextNode(checklistItem.name);
-         if (checklistItem.description != undefined) {
-           textDivElem.setAttribute('title', checklistItem.description);
-         }
-         textDivElem.append(itemText);
-         labelElem.append(textDivElem);
-         return labelElem;
-       },
+       const textDivElem = document.createElement('div');
+       textDivElem.setAttribute('class', loader.constants.CHECKLIST_ITEM_TEXT_CLASS);
 
-       /** Wrap the given element in a td element.
-        * @param {Element} the element to wrap in a td
-        * @return {Element} a td element containing the passed element
-        */
-        getTdWrappedElement: function(elementToWrap) {
-          td = document.createElement('td');
-          td.append(elementToWrap);
-          return td;
-        }
+       const itemText = document.createTextNode(checklistItem.name);
+       if (checklistItem.description != undefined) {
+         textDivElem.setAttribute('title', checklistItem.description);
+       }
+       textDivElem.append(itemText);
+       labelElem.append(textDivElem);
+       return labelElem;
+     },
+
+   /** Wrap the given element in a td element.
+    * @param {Element} elementToWrap the element to wrap in a td
+    * @return {Element} a td element containing the passed element
+    */
+    getTdWrappedElement: function(elementToWrap) {
+      td = document.createElement('td');
+      td.append(elementToWrap);
+      return td;
+    },
+
+    /** Given a container of rendered html, construct a javascript object from it.
+     *
+     * @param {Element} containingElement he container element of checklists to convert into json
+     * @return {Object} a Javascript object that represents the full state of the checklist
+     */
+     renderJsonFromHtml: function(containingElement) {
+       const returnObject = {};
+       returnObject.checklist = Array.from(document.getElementsByClassName(loader.constants.CHECKLIST_ITEM_CLASS),
+          element => loader.renderJsonFromChecklistItem(element)
+       );
+       return returnObject;
+
+     },
+
+   /** Given a container of a single checkbox div, return a JSON version of it.
+    *
+    *  @param {Element} checklistItemElem the html element to extract from
+    *  @return {Object} a JSON view of the data in the element
+    */
+    renderJsonFromChecklistItem: function(checklistItemElem) {
+       // checklist item name
+       const checklistItemTextElem = loader.getFirstElementOfClass(checklistItemElem, loader.constants.CHECKLIST_ITEM_TEXT_CLASS);
+       const itemName = checklistItemTextElem.textContent;
+       const itemDescription = checklistItemTextElem.getAttribute('title');
+       const checkboxElem = loader.getFirstElementOfClass(checklistItemElem, 'checkbox');
+
+       const returnObject = {};
+       if (itemName) {
+         returnObject.name = itemName;
+       }
+
+       if (itemDescription) {
+         returnObject.description = itemDescription;
+       }
+
+       if (checkboxElem) {
+         returnObject.checked = checkboxElem.checked;
+       }
+       return returnObject;
+
+    },
+
+  /** Return the first element within a container that has the given class.
+   *
+   * @param {Eleemnt} containingElement the element to look within
+   * @param {String} className the css class name to search for
+   * @return {Element} the first element within containingElement that has the specified class, or undefined if one not found
+   */
+   getFirstElementOfClass: function(containingElement, className) {
+     const subElements = containingElement.getElementsByClassName(className);
+     return subElements.length > 0 ? subElements[0] : undefined;
+   },
+
+   constants: {
+     CHECKLIST_ITEM_CLASS: 'checklistItem',
+     CHECKLIST_ITEM_TEXT_CLASS: 'checklistItemText'
+   }
 }
-
-//loader.clearChecklistDiv();
-const checklistElem = document.getElementById('checklist');
-loader.loadChecklistForURL('nourl', checklistElem); // todo: add URL

@@ -13,11 +13,34 @@ Finally, it will create a brand new checklist by copying a template.
 Each time you check a box on the checklist for the given URL, the checklist will
 get saved.
 
+Purging
+-------
+The plugin uses Chrome's synced storage, so you can use it on different machines if you're logged
+into Chrome on each one. However, that imposes constraints on how many items you can save.
+The plugin will keep track of the last 500 code reviews, and will purge the
+oldest ones (by modification date) first.
+
+Todos
+-----
+
+  * implement purging logic
+  * allow user to change master template
+
 Things To Note
 --------------
 The default template rarely contains things you can use a linter to find. Not only
 are the settings for that different for every developer or organization, you can (and should)
 use computers to do this checking.
+
+Testing
+-------
+The repo uses karma and jasmine for testing. To start karma:
+
+    node ./node_modules/karma/bin/karma start ./code-review.conf.js
+
+And then in another window:
+
+    node ./node_modules/karma/bin/karma run
 
 Bibliography
 ------------
