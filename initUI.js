@@ -14,11 +14,9 @@ function saveChecklist(event) {
   chrome.tabs.query({active: true, currentWindow: true},
     tabArray => {
       const tabUrl = tabArray[0].url;
-      // set up the storage object
-      const storageObject = {};
-      storageObject[tabUrl] = json;
-      
-      chrome.storage.sync.set(storageObject);
+
+      storage.saveJsonInKey(json, tabUrl);
+      chrome.storage.local.het(storageObject);
     }
   );
 }

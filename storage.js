@@ -23,12 +23,12 @@ const storage = {
    */
    loadChecklistForURL: function(url, checklistCallback) {
 
-     chrome.storage.sync.get(url, checklistData => {
+     chrome.storage.local.get(url, checklistData => {
        if (checklistData && checklistData[url] && checklistData[url].checklist) {
          checklistCallback(checklistData[url]);
        } else {
          fetch(chrome.extension.getURL('master_template.json')).then(
-            response => response.json().then(json => checklistCallback(json)));         
+            response => response.json().then(json => checklistCallback(json)));
        }
      })
    },
@@ -39,6 +39,8 @@ const storage = {
     * @param {String} storageKey the key in which to save the json
     */
     saveJsonInKey: function(json, storageKey) {
-      chrome.storage.sync.set( {'storageKey': json });
+      const storageObject = {};
+      storageObject[storageKey] = json;
+      chrome.storage.local.set( storageObject);
     }
 }
