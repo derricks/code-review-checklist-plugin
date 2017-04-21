@@ -15,8 +15,7 @@ function saveChecklist(event) {
     tabArray => {
       const tabUrl = tabArray[0].url;
 
-      storage.saveJsonInKey(json, tabUrl);
-      chrome.storage.local.het(storageObject);
+      storage.saveChecklist(json, tabUrl);
     }
   );
 }
