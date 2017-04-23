@@ -8,6 +8,9 @@
       "name": "All names are descriptive."
     },
     {
+      "name": "Names and comments do not include spelling mistakes"
+    },
+    {
       "name": "Items that use amounts encode the unit of measurement.",
       "description": "A variable named something such as timeout_seconds requires less digging around to figure out the unit."
     },

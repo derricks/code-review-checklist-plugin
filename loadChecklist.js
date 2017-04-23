@@ -15,7 +15,6 @@ const loader = {
       if (!json.checklist) {
         return;
       }
-
       json.checklist.forEach( item => checklistElem.append(loader.renderChecklistItem(item)));
     },
 
@@ -100,11 +99,12 @@ const loader = {
      */
      renderJsonFromHtml: function(containingElement) {
        const returnObject = {};
-       returnObject.checklist = Array.from(document.getElementsByClassName(loader.constants.CHECKLIST_ITEM_CLASS),
+       const allChecklistItems = Array.from(document.getElementsByClassName(loader.constants.CHECKLIST_ITEM_CLASS),
           element => loader.renderJsonFromChecklistItem(element)
        );
+       const checkedItems = allChecklistItems.filter( checklistItem => checklistItem.checked);
+       returnObject.checklist = checkedItems;
        return returnObject;
-
      },
 
    /** Given a container of a single checkbox div, return a JSON version of it.
@@ -116,16 +116,11 @@ const loader = {
        // checklist item name
        const checklistItemTextElem = loader.getFirstElementOfClass(checklistItemElem, loader.constants.CHECKLIST_ITEM_TEXT_CLASS);
        const itemName = checklistItemTextElem.textContent;
-       const itemDescription = checklistItemTextElem.getAttribute('title');
        const checkboxElem = loader.getFirstElementOfClass(checklistItemElem, 'checkbox');
 
        const returnObject = {};
        if (itemName) {
          returnObject.name = itemName;
-       }
-
-       if (itemDescription) {
-         returnObject.description = itemDescription;
        }
 
        if (checkboxElem) {
