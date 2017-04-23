@@ -43,4 +43,41 @@ describe('utility functions', () => {
     expect(coalescedItems[0].checklistKey).toBe('abc');
     expect(coalescedItems[0].timestamp).toBe(123);;
   });
+
+  it ('should convert an array of checklist items to a hash', () => {
+    const testArray = [
+      {name: 'checkedItem1', checked:true, description: 'should be ignored'},
+      {name: 'checkedItem2', checked:true, description: 'should be ignored'},
+      {name: 'uncheckedItem1', checked: false},
+      {name: 'uncheckedItem2'},
+      {description: 'invalidItem1'}
+    ];
+
+    const lookupHash = storage.convertChecklistToHash(testArray);
+    expect(lookupHash['checkedItem1']).toBe(true);
+    expect(lookupHash['checkedItem2']).toBe(true);
+    expect(lookupHash['uncheckedItem1']).toBeUndefined();
+    expect(lookupHash['uncheckedItem2']).toBeUndefined();
+    expect(Object.keys(lookupHash).length).toBe(2);
+  });
+
+  it ('should merge checklist data onto json', () => {
+    const storedData = {checklist:
+    [
+      {name: 'checkedItem1', checked: true}
+    ]};
+
+    const jsonTemplate = { checklist:
+    [
+      {name: 'checkedItem1', description: 'This should get set to true'},
+      {name: 'uncheckedItem1'}
+    ]};
+
+    const mergedChecklist = {checklist: storage.mergeChecklistOntoMaster(storedData, jsonTemplate)};
+    expect(mergedChecklist.checklist[0].checked).toBe(true);
+    expect(mergedChecklist.checklist[1].checked).toBe(false);
+
+  });
+
+
 });

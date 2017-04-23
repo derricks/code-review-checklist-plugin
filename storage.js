@@ -25,15 +25,62 @@ const storage = {
    */
    loadChecklistForURL: function(url, checklistCallback) {
 
-     storage.getStorageArea().get(url, checklistData => {
-       if (storage.isValidChecklistObject(checklistData, url)) {
-         checklistCallback(checklistData[url]);
-       } else {
-         fetch(chrome.extension.getURL('master_template.json')).then(
-            response => response.json().then(json => checklistCallback(json)));
-       }
-     })
+     // load template and then overlay any checked items from storage
+     fetch(chrome.runtime.getURL('master_template.json')).then(response =>
+       response.json().then(json => {
+          // once json is loaded, overlay storage item
+          storage.getStorageArea().get(url, checklistData => {
+            const mergedJson = storage.mergeChecklistOntoMaster(checklistData[url], json);
+            checklistCallback({checklist: mergedJson});
+          });
+       }));
    },
+
+   /** Merges checklist information on top of main template json.
+    *  For any given item in template, see if the corresponding key in checklist
+    *  is checked.
+    *  This mutates mergeTarget
+    *
+    * @param {Object} checklistData the data for the saved checklist
+    * @param {Object} mergeTarget the jso to merge into.
+    */
+    mergeChecklistOntoMaster: function(checklistData, mergeTarget) {
+       if (!checklistData) {
+         return mergeTarget.checklist;
+       }
+
+       // convert the checklistData to a hash for quick lookup
+       const nameToChecked = storage.convertChecklistToHash(checklistData.checklist);
+
+       // for every name in mergerTarget, find the equivalent value in checklistData
+       // and set the mergeTarget's json to include a checked flag
+       const mergedChecklist = mergeTarget.checklist.map( storedData => {
+
+         const returnItem = {name: storedData.name, description: storedData.description};
+         returnItem.checked = nameToChecked[storedData.name] ? nameToChecked[storedData.name] : false
+         return returnItem;
+       });
+       return mergedChecklist;
+    },
+
+    /** Convert a checklist array to a hash where the key is the item name
+     *  and the value is its checked status.
+     *  @param {Array} checklistItems the items to inspect
+     *  @return {Ojbect} hash where each key is the checklist item name and each value is its checked state
+     */
+     convertChecklistToHash: function(checklistItems) {
+       if (!checklistItems) {
+         return {};
+       }
+
+       const hash = checklistItems.reduce( (accumulator, currentItem, _index, _array) => {
+         if (storage.isObjectValid(currentItem, 'name') && currentItem.checked) {
+           accumulator[currentItem.name] = currentItem.checked;
+         }
+         return accumulator;
+       }, {});
+       return hash;
+     },
 
    /** Determine if the passed in data is valid and has the given key
     *

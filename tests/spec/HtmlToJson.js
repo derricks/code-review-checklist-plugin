@@ -37,15 +37,11 @@ describe('HtmlToJSON Renderer', function() {
       const storageObject = loader.renderJsonFromHtml(checklistElement);
 
       expect(storageObject.checklist).toBeDefined();
-      expect(storageObject.checklist.length).toEqual(2);
+      expect(storageObject.checklist.length).toEqual(1);
 
-      expect(storageObject.checklist[0].name).toEqual('item 1');
-      expect(storageObject.checklist[0].description).toEqual('helpful text');
-      expect(storageObject.checklist[0].checked).toBe(false);
-
-      expect(storageObject.checklist[1].name).toEqual('item 2');
-      expect(storageObject.checklist[1].description).toEqual('more helpful text');
-      expect(storageObject.checklist[1].checked).toBe(true);
+      expect(storageObject.checklist[0].name).toEqual('item 2');
+      expect(storageObject.checklist[0].description).toBeUndefined();
+      expect(storageObject.checklist[0].checked).toBe(true);
 
     });
 
