@@ -23,7 +23,6 @@ oldest ones (by modification date) first.
 Todos
 -----
 
-  * implement purging logic
   * use a smaller data structure to allow for using synced storage
 
     * key = checklist text, selected = true (only set checklist items that are in this blob)

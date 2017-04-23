@@ -2,7 +2,22 @@
   "checklist": [
     {
       "name": "Commit messages conform to standards",
-      "description": "Well-formatted commit messages make it easy to quickly scan commit history and provide clear, concise information to the reader."
+      "description": "Well-formatted commit messages make it easy to scan commit history and provide clear, concise information to the reader."
+    },
+    {
+      "name": "All names are descriptive."
+    },
+    {
+      "name": "Items that use amounts encode the unit of measurement.",
+      "description": "A variable named something such as timeout_seconds requires less digging around to figure out the unit."
+    },
+    {
+      "name": "Public methods check the validity of all their arguments at the beginning of the method.",
+      "description": "Public methods have to act defensively and assume they'll get passed any range of garbage values. Checking early means that no state changes happen unless the input is all valid."
+    },
+    {
+      "name": "Storage that's appended to has a retention plan.",
+      "description": "If the code appends to some sort of storage, what is the retention policy for that data? Storage that grows and grows can cause operational headaches and system failures."
     },
     {
       "name": "Mutable data shared across threads is protected from concurrent modifications.",
@@ -11,13 +26,6 @@
     {
       "name": "Data is immutable wherever possible.",
       "description": "Data that is guaranteed to never change is thread-safe and easier to reason about when debugging."
-    },
-    {
-      "name": "Public methods check the validity of all their arguments at the beginning of the method.",
-      "description": "Public methods have to act defensively and assume they'll get passed any range of garbage values. Checking early means that no state changes happen unless the input is all valid."
-    },
-    {
-      "name": "All names are descriptive."
     },
     {
       "name": "Open connections are closed in the same place",
