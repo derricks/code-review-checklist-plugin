@@ -60,10 +60,13 @@ const loader = {
 
         const subheadDiv = document.createElement('div');
         const titleDiv = document.createElement('div');
+        titleDiv.id = checklistItem.subheading;
         titleDiv.append(document.createTextNode(checklistItem.subheading));
+        titleDiv.addEventListener('click', toggleSubheading);
         subheadDiv.append(titleDiv);
 
         const checklistDiv = document.createElement('div');
+        checklistDiv.setAttribute('style', 'padding-left:15px;')
         if (checklistItem.checklist) {
           checklistItem.checklist.forEach(item => checklistDiv.append(loader.renderChecklistItem(item)));
         }

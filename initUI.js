@@ -6,7 +6,14 @@ function isNormalChromeEnvironment() {
 //loader.clearChecklistDiv();
 const checklistElem = document.getElementById('checklist');
 
-function saveChecklist(event) {
+function toggleSubheading(event) {
+  console.log(event);
+  const checklistDiv = event.target.nextElementSibling;
+  console.log(checklistDiv);
+  checklistDiv.style.display = checklistDiv.style.display == 'block' ? 'none': 'block';
+}
+
+function saveChecklist(_event) {
   const json = loader.renderJsonFromHtml(checklistElem);
 
   // when impleminting purging, check that element is not in list
