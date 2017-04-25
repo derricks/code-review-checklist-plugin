@@ -56,12 +56,39 @@ const storage = {
        // and set the mergeTarget's json to include a checked flag
        const mergedChecklist = mergeTarget.checklist.map( storedData => {
 
-         const returnItem = {name: storedData.name, description: storedData.description};
-         returnItem.checked = nameToChecked[storedData.name] ? nameToChecked[storedData.name] : false
-         return returnItem;
+         if (storedData.subheading) {
+           return {subheading: storedData.subheading, checklist: storage.setCheckedFlagsFromLookup(nameToChecked, storedData.checklist)};
+         } else {
+           return storage.setCheckedFlagFromLookup(nameToChecked, storedData);
+         }
        });
        return mergedChecklist;
     },
+
+    /** Update checklist items with a checked attribute if the passed-in hash
+     *  holds the checklist item's name. Refactored utility code
+     *
+     * @param {Object} lookupHash hash of checklist item name to checked status
+     * @param {Array} checklistItems array of objects to update based on hash value
+     * @return {Array} array of checklist items that have been updated with checked attributes
+     */
+     setCheckedFlagsFromLookup: function(lookupHash, checklistItems) {
+       if (!checklistItems) {
+         return [];
+       }
+
+       return checklistItems.map( item => storage.setCheckedFlagFromLookup(lookupHash, item));
+     },
+
+     /** Return an object with a checked attribute of true if the lookupHash has an appropriate key for the item's name.
+      *
+      *  @param {Object} lookupHash the lookup table to use for checking checklist items
+      *  @param {Object} checklistItem the single item to check
+      *  @return an object with the same name/description as checklistItem that also has a checked attribute
+      */
+      setCheckedFlagFromLookup: function(lookupHash, checklistItem) {
+         return {name: checklistItem.name, description: checklistItem.description, checked: (lookupHash[checklistItem.name] ? lookupHash[checklistItem.name] : false)};
+      },
 
     /** Convert a checklist array to a hash where the key is the item name
      *  and the value is its checked status.

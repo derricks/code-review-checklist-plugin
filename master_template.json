@@ -19,6 +19,14 @@
       "description": "Public methods have to act defensively and assume they'll get passed any range of garbage values. Checking early means that no state changes happen unless the input is all valid."
     },
     {
+      "name": "Methods either do one thing or orchestrate other methods",
+      "description": "It's easy to let methods grow as you code. But small, simple methods are easier to debug and easier to write tests for. Methods should do one concrete thing, or they should be a way to orchestrate other methods."
+    },
+    {
+      "name": "All arguments passed to functions are used or prefixed with underscore",
+      "description": "If you pass an argument to a method but never use it, it adds context a reader doesn't really need, and is also a variable in an uncertain state. Someone who goes to use it later may find that it's often null or invalid. If a method is implementing some contract, unused variables can be prefixed with underscore to indicate they're unused."
+    },
+    {
       "name": "Storage that's appended to has a retention plan.",
       "description": "If the code appends to some sort of storage, what is the retention policy for that data? Storage that grows and grows can cause operational headaches and system failures."
     },
@@ -31,12 +39,17 @@
       "description": "Data that is guaranteed to never change is thread-safe and easier to reason about when debugging."
     },
     {
-      "name": "Open connections are closed in the same place",
-      "description": "If you open a connection, you should close it. And you should close it in the same block of code that opens it (versus, say, passing it to another method). Use your language's equivalent of Java's finally block"
-    },
-    {
-      "name": "Calls to remote services at a minimum have a timeout. Same with joins or waits on threads.",
-      "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern"
+      "subheading": "Calling Other Services",
+      "checklist": [
+        {
+          "name": "Open connections are closed in the same place",
+          "description": "If you open a connection, you should close it. And you should close it in the same block of code that opens it (versus, say, passing it to another method). Use your language's equivalent of Java's finally block"
+        },
+        {
+          "name": "Calls to remote services at a minimum have a timeout. Same with joins or waits on threads.",
+          "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern"
+        }
+      ]
     }
 
   ]
