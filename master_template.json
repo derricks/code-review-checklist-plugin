@@ -5,27 +5,84 @@
       "description": "Well-formatted commit messages make it easy to scan commit history and provide clear, concise information to the reader."
     },
     {
-      "name": "All names are descriptive."
+      "subheading": "Names",
+      "checklist": [
+        {
+          "name": "All names are descriptive."
+        },
+        {
+          "name": "Names and comments do not include spelling mistakes"
+        },
+        {
+          "name": "Items that use amounts encode the unit of measurement.",
+          "description": "A variable named something such as timeout_seconds requires less digging around to figure out the unit."
+        }
+      ]
     },
     {
-      "name": "Names and comments do not include spelling mistakes"
+      "subheading": "Code comprehension",
+      "checklist": [
+        {
+          "name": "Methods either do one thing or orchestrate other methods",
+          "description": "It's easy to let methods grow as you code. But small, simple methods are easier to debug and easier to write tests for. Methods should do one concrete thing, or they should be a way to orchestrate other methods."
+        },
+        {
+          "name": "Methods neither define nor use ambiguous booleans",
+          "description": "Consider the code snippet \"setWindowSize(100,100,true).\" If you are debugging in that code, you will need to figure out what that third argument is as part of your work. As the implementer of that method, you can use constants, enums, or named variables. As the client, you can use constants to produce something like \"setWindowSize(100,100,IMMEDIATE_REDRAW)\""
+        },
+        {
+          "name": "Complex boolean checks are moved to methods that describe the total effect",
+          "description": "Consider the code \"if !variable1 && (variable2 || variable3.property).\" This takes a while for a reader to parse. You can move it in to some well-named method such as \"isValidTableItem()\" so that the reader can quickly comprehend what you're trying to check."
+        }
+      ]
+    },
+
+    {
+      "subheading": "Defensive coding",
+      "checklist": [
+        {
+          "name": "Public methods check the validity of all their arguments at the beginning of the method.",
+          "description": "Public methods have to act defensively and assume they'll get passed any range of garbage values. Checking early means that no state changes happen unless the input is all valid."
+        },
+        {
+          "name": "Switch statements or if/else if blocks always handle the default case",
+          "description": "When handling multiple conditions in an if statement or switch statement, handling the default case -- even if it's to throw an error -- ensures that your code will behave as you expect even if the inputs change."
+        },
+        {
+          "name": "All arguments passed to functions are used or prefixed with underscore",
+          "description": "If you pass an argument to a method but never use it, it adds context a reader doesn't really need, and is also a variable in an uncertain state. Someone who goes to use it later may find that it's often null or invalid. If a method is implementing some contract, unused variables can be prefixed with underscore to indicate they're unused."
+        },
+        {
+          "name": "Microclones don't have bugs in their last lines",
+          "description": "Microclones are very small blocks of code -- even a single line -- that are copied and pasted. If there are bugs in those blocks, they will appear in the last line a disproprortionate amount of time."
+        },
+        {
+          "name": "Code dependencies are pinned to specific versions for production code",
+          "description": "Failing to pin a version for a dependency could cause a new, broken version to get imported before you've had a chance to test it with your code"
+        }
+      ]
     },
     {
-      "name": "Items that use amounts encode the unit of measurement.",
-      "description": "A variable named something such as timeout_seconds requires less digging around to figure out the unit."
+      "subheading": "Tests",
+      "checklist": [
+        {
+          "name": "There are tests"
+        },
+        {
+          "name": "Every exit path from the code under test has a test case.",
+          "description": "It is often tempting to only write a test for the happy path, or a known error, or some other shortcut. Tests should cover all the possible paths the code might take."
+        },
+        {
+          "name": "Tests test the right thing"
+        },
+        {
+          "name": "There are no obvious bugs in the tests",
+          "description": "Test code does not, itself, have tests, so it relies on extra vigilance from reviewers."
+        }
+      ]
+
     },
-    {
-      "name": "Public methods check the validity of all their arguments at the beginning of the method.",
-      "description": "Public methods have to act defensively and assume they'll get passed any range of garbage values. Checking early means that no state changes happen unless the input is all valid."
-    },
-    {
-      "name": "Methods either do one thing or orchestrate other methods",
-      "description": "It's easy to let methods grow as you code. But small, simple methods are easier to debug and easier to write tests for. Methods should do one concrete thing, or they should be a way to orchestrate other methods."
-    },
-    {
-      "name": "All arguments passed to functions are used or prefixed with underscore",
-      "description": "If you pass an argument to a method but never use it, it adds context a reader doesn't really need, and is also a variable in an uncertain state. Someone who goes to use it later may find that it's often null or invalid. If a method is implementing some contract, unused variables can be prefixed with underscore to indicate they're unused."
-    },
+
     {
       "name": "Storage that's appended to has a retention plan.",
       "description": "If the code appends to some sort of storage, what is the retention policy for that data? Storage that grows and grows can cause operational headaches and system failures."
@@ -48,6 +105,10 @@
         {
           "name": "Calls to remote services at a minimum have a timeout. Same with joins or waits on threads.",
           "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern"
+        },
+        {
+          "name": "Implications of caches going away are considered",
+          "description": "If you cache data from a service, you have to consider the implications if the cache goes away. What will the performance of the application be while the cache is being rebuilt? What will load look like on the remote system if the cache needs to be refilled?"
         }
       ]
     }
