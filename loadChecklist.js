@@ -22,8 +22,12 @@ const loader = {
      *  @param {Object} checklistItem JSON representing the checklist item to render
      *  @return {Element} containerElem element that can be appended
      */
-     renderChecklistItem: function(checklistItem, containerElem) {
+     renderChecklistItem: function(checklistItem) {
        // validate data
+       if (checklistItem.subheading) {
+         return loader.renderSubheadItem(checklistItem);
+       }
+
        if (checklistItem == undefined || checklistItem.name == undefined) {
          return document.createElement('div');
        }
@@ -43,6 +47,30 @@ const loader = {
 
        return itemElem;
      },
+
+     /** Render a div from a JSON block with a subheading
+      *
+      *  @param {Object} checklistItem the JSON holding the subheading and the checklist
+      *  @return {Element} the element to append to the container
+      */
+      renderSubheadItem: function(checklistItem, containerElem) {
+        if (!checklistItem.subheading) {
+          return document.createElement('div');
+        }
+
+        const subheadDiv = document.createElement('div');
+        const titleDiv = document.createElement('div');
+        titleDiv.append(document.createTextNode(checklistItem.subheading));
+        subheadDiv.append(titleDiv);
+
+        const checklistDiv = document.createElement('div');
+        if (checklistItem.checklist) {
+          checklistItem.checklist.forEach(item => checklistDiv.append(loader.renderChecklistItem(item)));
+        }
+        subheadDiv.append(checklistDiv);
+
+        return subheadDiv;
+      },
 
      /** Create the checkbox Element for the given checklistItem.
       *  @param {Object} checklistItem json representing the checklist item's data

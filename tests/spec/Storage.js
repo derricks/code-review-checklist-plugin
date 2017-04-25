@@ -76,6 +76,27 @@ describe('utility functions', () => {
     const mergedChecklist = {checklist: storage.mergeChecklistOntoMaster(storedData, jsonTemplate)};
     expect(mergedChecklist.checklist[0].checked).toBe(true);
     expect(mergedChecklist.checklist[1].checked).toBe(false);
+  });
+
+  describe('constructing checklist items from storage', () => {
+    const lookupHash = {
+      item1: true,
+    };
+
+    const mergeTarget = [
+      {name: 'item1'},
+      {name: 'item2'}
+    ];
+
+    it ('should set checked to true if the name is in the hash', () => {
+      const mergedCheckedItem = storage.setCheckedFlagFromLookup(lookupHash, mergeTarget[0]);
+      expect(mergedCheckedItem.checked).toBe(true);
+    });
+
+    it ('should set checked to false if the name is in the hash', () => {
+      const mergedCheckedItem = storage.setCheckedFlagFromLookup(lookupHash, mergeTarget[1]);
+      expect(mergedCheckedItem.checked).toBe(false);
+    });
 
   });
 
