@@ -8,7 +8,8 @@
       "subheading": "Names",
       "checklist": [
         {
-          "name": "All names are descriptive."
+          "name": "All names are descriptive.",
+          "description": "Any names should be long enough to communicate what the element does but not so long as to look like noise. See _Debugging effort estimation using software metrics_ by Gorla, Benander, and Benander."
         },
         {
           "name": "Names and comments do not include spelling mistakes"
@@ -33,7 +34,12 @@
         {
           "name": "Complex boolean checks are moved to methods that describe the total effect",
           "description": "Consider the code \"if !variable1 && (variable2 || variable3.property).\" This takes a while for a reader to parse. You can move it in to some well-named method such as \"isValidTableItem()\" so that the reader can quickly comprehend what you're trying to check."
+        },
+        {
+          "name": "Data is immutable wherever possible.",
+          "description": "Data that is guaranteed to never change is thread-safe and easier to reason about when debugging."
         }
+
       ]
     },
 
@@ -45,6 +51,10 @@
           "description": "Public methods have to act defensively and assume they'll get passed any range of garbage values. Checking early means that no state changes happen unless the input is all valid."
         },
         {
+          "name": "Methods fail fast if data is invalid.",
+          "description": "Check all incoming data before doing any work; that way you ensure that nothing is left in an odd state if one piece of data is valid but another is not."
+        },
+        {
           "name": "Switch statements or if/else if blocks always handle the default case",
           "description": "When handling multiple conditions in an if statement or switch statement, handling the default case -- even if it's to throw an error -- ensures that your code will behave as you expect even if the inputs change."
         },
@@ -54,11 +64,19 @@
         },
         {
           "name": "Microclones don't have bugs in their last lines",
-          "description": "Microclones are very small blocks of code -- even a single line -- that are copied and pasted. If there are bugs in those blocks, they will appear in the last line a disproprortionate amount of time."
+          "description": "Microclones are very small blocks of code -- even a single line -- that are copied and pasted. If there are bugs in those blocks, they will appear in the last line a disproprortionate amount of time. See _The Last Line Effect_ by Beller, Zaidman, and Karpov."
         },
         {
           "name": "Code dependencies are pinned to specific versions for production code",
           "description": "Failing to pin a version for a dependency could cause a new, broken version to get imported before you've had a chance to test it with your code"
+        },
+        {
+          "name": "Mutable data shared across threads is protected from concurrent modifications.",
+          "description": "Whenever you have data that can be changed by different threads, you need to use your language's constructs to prevent concurrent modifications."
+        },
+        {
+          "name": "Any waits on threads or processes are guarded with a timeout",
+          "description": "If you're waiting on some other thread or process to finish, your code should have a timeout so it doesn't wait indefinitely if the other code gets hung up. See Nygard's _Release It_"
         }
       ]
     },
@@ -82,18 +100,12 @@
       ]
 
     },
-
     {
       "name": "Storage that's appended to has a retention plan.",
       "description": "If the code appends to some sort of storage, what is the retention policy for that data? Storage that grows and grows can cause operational headaches and system failures."
     },
     {
-      "name": "Mutable data shared across threads is protected from concurrent modifications.",
-      "description": "Whenever you have data that can be changed by different threads, you need to use your language's constructs to prevent concurrent modifications."
-    },
-    {
-      "name": "Data is immutable wherever possible.",
-      "description": "Data that is guaranteed to never change is thread-safe and easier to reason about when debugging."
+      "name": "Opened streams are closed by the same code that opens them"
     },
     {
       "subheading": "Calling Other Services",
@@ -104,11 +116,24 @@
         },
         {
           "name": "Calls to remote services at a minimum have a timeout. Same with joins or waits on threads.",
-          "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern"
+          "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern. See Nygard's _Release It_"
         },
         {
           "name": "Implications of caches going away are considered",
           "description": "If you cache data from a service, you have to consider the implications if the cache goes away. What will the performance of the application be while the cache is being rebuilt? What will load look like on the remote system if the cache needs to be refilled?"
+        }
+      ]
+    },
+    {
+      "subheading": "Productionization",
+      "checklist": [
+        {
+          "name": "Performance changes are understood for this change",
+          "description": "Memory usage, CPU usage, and other performance implications should be well understood before a change goes to production"
+        },
+        {
+          "name": "Metrics are in place for the change",
+          "description": "Any significant feature should have metrics around it to allow for proper monitoring"
         }
       ]
     }
