@@ -28,6 +28,10 @@
       "subheading": "Code comprehension",
       "checklist": [
         {
+          "name": "Names do not use negatives",
+          "description": "Names such as 'should_not_process' and 'disabled' can be confusing when you're reading code such as 'if not disabled.' Avoid names that use negatives."
+        },
+        {
           "name": "Methods either do one thing or orchestrate other methods",
           "description": "It's easy to let methods grow as you code. But small, simple methods are easier to debug and easier to write tests for. Methods should do one concrete thing, or they should be a way to orchestrate other methods."
         },
