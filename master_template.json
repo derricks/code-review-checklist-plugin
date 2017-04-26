@@ -5,6 +5,10 @@
       "description": "Well-formatted commit messages make it easy to scan commit history and provide clear, concise information to the reader."
     },
     {
+      "name": "Code conforms to the style of the code around it, regardless of a linter's view",
+      "description": "While style checks should generally be left to linters, code added into existing code should conform to that code's style, even if that doesn't conform to linter settings."
+    },
+    {
       "subheading": "Names",
       "checklist": [
         {
