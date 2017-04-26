@@ -38,8 +38,14 @@
         {
           "name": "Data is immutable wherever possible.",
           "description": "Data that is guaranteed to never change is thread-safe and easier to reason about when debugging."
-        }
-
+        },
+        {
+          "name": "Opened streams are closed by the same code that opens them"
+        },
+        {
+          "name": "Constants are namespaced appropriately",
+          "description": "Multiple sources could define constants with the same name, depending on the language, so be explicit about where the constant is coming from"
+        }        
       ]
     },
 
@@ -75,8 +81,15 @@
           "description": "Whenever you have data that can be changed by different threads, you need to use your language's constructs to prevent concurrent modifications."
         },
         {
+          "name": "Public methods do not let mutable copies of state data escape.",
+          "description": "If a method returns data maintained by the object, it should return an immuatable form so that clients can not manipulate the object's own data. Ideally, no returned data is mutable, because then client code can predict its state as well, but this may be harder to enforce."
+        },        
+        {
           "name": "Any waits on threads or processes are guarded with a timeout",
           "description": "If you're waiting on some other thread or process to finish, your code should have a timeout so it doesn't wait indefinitely if the other code gets hung up. See Nygard's _Release It_"
+        },
+        {
+          "name": "Possible errors are handled or are passed to the client with useful context"
         }
       ]
     },
@@ -101,13 +114,6 @@
 
     },
     {
-      "name": "Storage that's appended to has a retention plan.",
-      "description": "If the code appends to some sort of storage, what is the retention policy for that data? Storage that grows and grows can cause operational headaches and system failures."
-    },
-    {
-      "name": "Opened streams are closed by the same code that opens them"
-    },
-    {
       "subheading": "Calling Other Services",
       "checklist": [
         {
@@ -115,7 +121,7 @@
           "description": "If you open a connection, you should close it. And you should close it in the same block of code that opens it (versus, say, passing it to another method). Use your language's equivalent of Java's finally block"
         },
         {
-          "name": "Calls to remote services at a minimum have a timeout. Same with joins or waits on threads.",
+          "name": "Calls to remote services at a minimum have a timeout.",
           "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern. See Nygard's _Release It_"
         },
         {
@@ -134,6 +140,19 @@
         {
           "name": "Metrics are in place for the change",
           "description": "Any significant feature should have metrics around it to allow for proper monitoring"
+        },
+        {
+          "name": "Storage that's appended to has a retention plan.",
+          "description": "If the code appends to some sort of storage -- adding a line to a file, say, or adding a row to a database -- what is the retention policy for that data? Storage that grows and grows can cause operational headaches and system failures."
+        }
+      ]
+    },
+    {
+      "subheading": "Java specifics",
+      "checklist": [
+        {
+          "name": "Needless boxing and unboxing is removed.",
+          "description": "Boxing variables, where a primitive is wrapped in the corresponding Object, can cause performance issues in a production system."
         }
       ]
     }
