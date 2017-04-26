@@ -40,12 +40,16 @@
           "description": "Data that is guaranteed to never change is thread-safe and easier to reason about when debugging."
         },
         {
-          "name": "Opened streams are closed by the same code that opens them"
+          "name": "Opened streams are closed by the same code that opens them."
         },
         {
           "name": "Constants are namespaced appropriately",
           "description": "Multiple sources could define constants with the same name, depending on the language, so be explicit about where the constant is coming from"
-        }        
+        },
+        {
+          "name": "Overly branched code is broken into methods.",
+          "description": "Nested ifs, for loops, and callback functions can often be moved into standalone methods that are descriptively named. Your preferred depth of branching will vary (and can often be captured with a linter that checks McCabe or NPath complexity), but generally fewer branches in a block of code makes it easier to understand."
+        }
       ]
     },
 
