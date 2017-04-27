@@ -130,6 +130,15 @@
 
     },
     {
+      "subheading": "Code Maintainability",
+      "checklist": [
+        {
+          "name": "No code is commented out",
+          "description": "Commented-out code causes maintenance problems because source code searches hit code that's not active. They also run the risk of accidentally being uncommented in a bulk operation, bringing code back into production."
+        }
+      ]
+    },
+    {
       "subheading": "Calling Other Services",
       "checklist": [
         {
