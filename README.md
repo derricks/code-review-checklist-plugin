@@ -41,4 +41,8 @@ use computers to do this checking.
 
 Bibliography
 ------------
-_Practical Code Inspection Techniques for Object-Oriented Systems: An Experimental Comparison_: Dunsmore, Roper, Wood, IEEE Software, July August 2003
+  * _Practical Code Inspection Techniques for Object-Oriented Systems: An Experimental Comparison_: Dunsmore, Roper, Wood
+  * _Debugging effort estimation using software metrics_: Gorla, Benander, and Benander
+  * _The Last Line Effect_: Beller, Zaidman, and Karpov
+  * _Release It!_: Michael Nygard
+  * _Feature Toggles: Practitioner Practices and a Case Study_: Rahman, Quere, Rigby, and Adams
