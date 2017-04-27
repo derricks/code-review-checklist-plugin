@@ -102,6 +102,10 @@
         },
         {
           "name": "Possible errors are handled or are passed to the client with useful context"
+        },
+        {
+          "name": "Code does not assume temp files are around even for the life of the code that uses them.",
+          "description": "Temp files can go away for any number of reasons, up to and including a person in operations clearing out disk space from /tmp due to a disk full alert. You should always assume your temp files can go away and handle that case."
         }
       ]
     },
