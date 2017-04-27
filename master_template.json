@@ -169,6 +169,10 @@
         {
           "name": "Storage that's appended to has a retention plan.",
           "description": "If the code appends to some sort of storage -- adding a line to a file, say, or adding a row to a database -- what is the retention policy for that data? Storage that grows and grows can cause operational headaches and system failures."
+        },
+        {
+          "name": "Feature flags are set appropriately",
+          "description": "Putting code behind a feature flag can let you turn it off quickly if the code has problems in production. However, feature flags then become technical debt and make it hard to understand the state of the code. Code should be removed from feature flags once it's stable. See _Feature Toggles: Practitioner Practices and a Case Study_ by Rahman, Quere, Rigby, and Adams."
         }
       ]
     },
