@@ -106,6 +106,10 @@
         {
           "name": "Code does not assume temp files are around even for the life of the code that uses them.",
           "description": "Temp files can go away for any number of reasons, up to and including a person in operations clearing out disk space from /tmp due to a disk full alert. You should always assume your temp files can go away and handle that case."
+        },
+        {
+          "name": "Recursive functions define an end state that is reached within a reasonable time",
+          "description": "Recursion is a powerful tool for simplifying code, but without an end state, they can run until they get a stack overflow. Make sure that you understand how the recursion will end, and make sure it will hit that end state within the bounds of the programming environment (which will vary -- tail-recursive functions in Erlang can go on forever!)"
         }
       ]
     },
@@ -135,6 +139,14 @@
         {
           "name": "No code is commented out",
           "description": "Commented-out code causes maintenance problems because source code searches hit code that's not active. They also run the risk of accidentally being uncommented in a bulk operation, bringing code back into production."
+        },
+        {
+          "name": "Todos in the code are tracked",
+          "description": "Leaving todos in a code base is a sure indicator of technical debt or potential bugs. Make sure that any todo in the code is tracked so it can be fixed."
+        },
+        {
+          "name": "Todos are removed when they're done",
+          "description": "When a todo becomes irrelevant, either because it's done or made obsolete, remove the todo from your code and any tracking system."
         }
       ]
     },
