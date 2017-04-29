@@ -186,6 +186,6 @@ const loader = {
 
    constants: {
      CHECKLIST_ITEM_CLASS: 'checklistItem',
-     CHECKLIST_ITEM_TEXT_CLASS: 'checklistItemText',
+     CHECKLIST_ITEM_TEXT_CLASS: 'checklistItemText'
    }
 }
