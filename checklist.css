@@ -1,0 +1,27 @@
+.remindersHeading {}
+
+.remindersText {}
+
+.checklistItem {
+  background-color: white;
+}
+
+.checklistItemText {}
+
+.checkbox {}
+
+.checklistInSubheading {
+  display: block;
+  padding-left: 15px;
+}
+
+.subheadingText {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+}

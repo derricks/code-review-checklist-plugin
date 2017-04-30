@@ -59,21 +59,33 @@ const loader = {
         }
 
         const subheadDiv = document.createElement('div');
-        const titleDiv = document.createElement('div');
-        titleDiv.id = checklistItem.subheading;
-        titleDiv.append(document.createTextNode(checklistItem.subheading));
-        titleDiv.addEventListener('click', toggleSubheading);
-        subheadDiv.append(titleDiv);
+        subheadDiv.append(loader.renderSubheadTitle(checklistItem.subheading));
 
         const checklistDiv = document.createElement('div');
-        checklistDiv.setAttribute('style', 'padding-left:15px;')
+        checklistDiv.setAttribute('class', 'checklistInSubheading');
+
         if (checklistItem.checklist) {
           checklistItem.checklist.forEach(item => checklistDiv.append(loader.renderChecklistItem(item)));
         }
+
         subheadDiv.append(checklistDiv);
 
         return subheadDiv;
       },
+
+      /** Render a subheading's title element.
+       *  @param {String} subheadingText the title to render
+       * @Return {Element} a div that holds the subheading title
+       */
+       renderSubheadTitle: function(subheadingText) {
+
+         const titleDiv = document.createElement('button');
+         titleDiv.setAttribute('class', 'subheadingText');
+         titleDiv.id = subheadingText;
+         titleDiv.append(document.createTextNode(subheadingText));
+         titleDiv.addEventListener('click', toggleSubheading);
+         return titleDiv;
+       },
 
      /** Create the checkbox Element for the given checklistItem.
       *  @param {Object} checklistItem json representing the checklist item's data

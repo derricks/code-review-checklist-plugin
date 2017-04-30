@@ -7,10 +7,9 @@ function isNormalChromeEnvironment() {
 const checklistElem = document.getElementById('checklist');
 
 function toggleSubheading(event) {
-  console.log(event);
   const checklistDiv = event.target.nextElementSibling;
-  console.log(checklistDiv);
-  checklistDiv.style.display = checklistDiv.style.display == 'block' ? 'none': 'block';
+  const elementDisplay = window.getComputedStyle(checklistDiv, null)['display'];
+  checklistDiv.style.display = elementDisplay == 'block' ? 'none': 'block';
 }
 
 function saveChecklist(_event) {
