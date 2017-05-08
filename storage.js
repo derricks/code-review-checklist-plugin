@@ -55,9 +55,8 @@ const storage = {
        // for every name in mergerTarget, find the equivalent value in checklistData
        // and set the mergeTarget's json to include a checked flag
        const mergedChecklist = mergeTarget.checklist.map( storedData => {
-
          if (storedData.subheading) {
-           return {subheading: storedData.subheading, checklist: storage.setCheckedFlagsFromLookup(nameToChecked, storedData.checklist)};
+           return {subheading: storedData.subheading, checklist: storage.mergeChecklistOntoMaster(checklistData, storedData)};
          } else {
            return storage.setCheckedFlagFromLookup(nameToChecked, storedData);
          }

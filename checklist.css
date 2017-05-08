@@ -13,6 +13,7 @@
 .checklistInSubheading {
   display: block;
   padding-left: 15px;
+  padding-top: 4px;
 }
 
 .subheadingText {

@@ -9,27 +9,27 @@
       "description": "While style checks should generally be left to linters, code added into existing code should conform to that code's style, even if that doesn't conform to linter settings."
     },
     {
-      "subheading": "Names",
-      "checklist": [
-        {
-          "name": "All names are descriptive.",
-          "description": "Any names should be long enough to communicate what the element does but not so long as to look like noise. See _Debugging effort estimation using software metrics_ by Gorla, Benander, and Benander."
-        },
-        {
-          "name": "Names and comments do not include spelling mistakes"
-        },
-        {
-          "name": "Items that use amounts encode the unit of measurement.",
-          "description": "A variable named something such as timeout_seconds requires less digging around to figure out the unit."
-        }
-      ]
-    },
-    {
       "subheading": "Code comprehension",
       "checklist": [
         {
-          "name": "Names do not use negatives",
-          "description": "Names such as 'should_not_process' and 'disabled' can be confusing when you're reading code such as 'if not disabled.' Avoid names that use negatives."
+          "subheading": "Names",
+          "checklist": [
+              {
+                "name": "All names are descriptive.",
+                "description": "Any names should be long enough to communicate what the element does but not so long as to look like noise. See _Debugging effort estimation using software metrics_ by Gorla, Benander, and Benander."
+              },
+              {
+                "name": "Names and comments do not include spelling mistakes"
+              },
+              {
+                "name": "Items that use amounts encode the unit of measurement.",
+                "description": "A variable named something such as timeout_seconds requires less digging around to figure out the unit."
+              },
+              {
+                "name": "Names do not use negatives",
+                "description": "Names such as 'should_not_process' and 'disabled' can be confusing when you're reading code such as 'if not disabled.' Avoid names that use negatives."
+              }              
+          ]
         },
         {
           "name": "Methods either do one thing or orchestrate other methods",
@@ -95,7 +95,7 @@
         {
           "name": "Public methods do not let mutable copies of state data escape.",
           "description": "If a method returns data maintained by the object, it should return an immuatable form so that clients can not manipulate the object's own data. Ideally, no returned data is mutable, because then client code can predict its state as well, but this may be harder to enforce."
-        },        
+        },
         {
           "name": "Any waits on threads or processes are guarded with a timeout",
           "description": "If you're waiting on some other thread or process to finish, your code should have a timeout so it doesn't wait indefinitely if the other code gets hung up. See Nygard's _Release It_"
