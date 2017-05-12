@@ -28,7 +28,7 @@
               {
                 "name": "Names do not use negatives",
                 "description": "Names such as 'should_not_process' and 'disabled' can be confusing when you're reading code such as 'if not disabled.' Avoid names that use negatives."
-              }              
+              }
           ]
         },
         {
@@ -147,6 +147,10 @@
         {
           "name": "Todos are removed when they're done",
           "description": "When a todo becomes irrelevant, either because it's done or made obsolete, remove the todo from your code and any tracking system."
+        },
+        {
+          "name": "Function arguments are not themselves calls to other functions.",
+          "description": "A code snippet that looks like this: a(b(c(2))) is very hard to debug and comprehend. Instead, put each function result into a temporary, well-named variable."
         }
       ]
     },
