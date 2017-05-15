@@ -189,6 +189,10 @@
         {
           "name": "Feature flags are set appropriately",
           "description": "Putting code behind a feature flag can let you turn it off quickly if the code has problems in production. However, feature flags then become technical debt and make it hard to understand the state of the code. Code should be removed from feature flags once it's stable. See _Feature Toggles: Practitioner Practices and a Case Study_ by Rahman, Quere, Rigby, and Adams."
+        },
+        {
+          "name": "Configuration files spell out every option rather than relying on defaults",
+          "description": "When troubleshooting a production system, you don't want to have to guess what a configuration option is set to. If you rely on defaults in the codebase, you have to look in the config file and in the code. It is better to be explicit about what options are set in one place."
         }
       ]
     },
