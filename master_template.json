@@ -110,6 +110,10 @@
         {
           "name": "Recursive functions define an end state that is reached within a reasonable time",
           "description": "Recursion is a powerful tool for simplifying code, but without an end state, they can run until they get a stack overflow. Make sure that you understand how the recursion will end, and make sure it will hit that end state within the bounds of the programming environment (which will vary -- tail-recursive functions in Erlang can go on forever!)"
+        },
+        {
+          "name": "Code is backwards compatible with existing clients",
+          "description": "When changing code, you can't always predict what clients are out there. By using default arguments or passing version numbers, you can still support outstanding clients."
         }
       ]
     },
