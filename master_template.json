@@ -197,6 +197,9 @@
         {
           "name": "Configuration files spell out every option rather than relying on defaults",
           "description": "When troubleshooting a production system, you don't want to have to guess what a configuration option is set to. If you rely on defaults in the codebase, you have to look in the config file and in the code. It is better to be explicit about what options are set in one place."
+        },
+        {
+          "name": "No paths point to user-specific directories or anything else that only exists on one machine"
         }
       ]
     },
