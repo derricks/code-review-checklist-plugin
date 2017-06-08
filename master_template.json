@@ -104,6 +104,10 @@
           "name": "Possible errors are handled or are passed to the client with useful context"
         },
         {
+          "name": "Exceptions do not die silently",
+          "description": "It's not uncommon to catch a seemingly innocuous error (InterruptedException in Java, for example) and do nothing with it. But an exception should, at a minimum, put out a log message saying it was tripped."
+        },
+        {
           "name": "Code does not assume temp files are around even for the life of the code that uses them.",
           "description": "Temp files can go away for any number of reasons, up to and including a person in operations clearing out disk space from /tmp due to a disk full alert. You should always assume your temp files can go away and handle that case."
         },
