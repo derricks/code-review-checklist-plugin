@@ -28,6 +28,10 @@
               {
                 "name": "Names do not use negatives",
                 "description": "Names such as 'should_not_process' and 'disabled' can be confusing when you're reading code such as 'if not disabled.' Avoid names that use negatives."
+              },
+              {
+                "name": "In dynamic languages, types are encoded in function names",
+                "description": "If a language is dynamically typed, you can't always know what you should pass into a method, and you can't always know what type is expected when maintaining the method. Encoding the type name in the variable name can help understanding. See _Exploiting Type Hints in Method Argument Names to Improve Lightweight Type Inference_"
               }
           ]
         },
@@ -57,6 +61,9 @@
         {
           "name": "Overly branched code is broken into methods.",
           "description": "Nested ifs, for loops, and callback functions can often be moved into standalone methods that are descriptively named. Your preferred depth of branching will vary (and can often be captured with a linter that checks McCabe or NPath complexity), but generally fewer branches in a block of code makes it easier to understand."
+        },
+        {
+          "name": "Methods are small enough to be easily grasped"
         }
       ]
     },
@@ -159,6 +166,9 @@
         {
           "name": "Function arguments are not themselves calls to other functions.",
           "description": "A code snippet that looks like this: a(b(c(2))) is very hard to debug and comprehend. Instead, put each function result into a temporary, well-named variable."
+        },
+        {
+          "name": "Any magic numbers have been placed into constants or config parameters."
         }
       ]
     },
@@ -204,15 +214,27 @@
         },
         {
           "name": "No paths point to user-specific directories or anything else that only exists on one machine"
+        },
+        {
+          "name": "Rolling back this change is well understood and documented"
         }
       ]
     },
     {
-      "subheading": "Java specifics",
+      "subheading": "Java Specifics",
       "checklist": [
         {
           "name": "Needless boxing and unboxing is removed.",
           "description": "Boxing variables, where a primitive is wrapped in the corresponding Object, can cause performance issues in a production system."
+        }
+      ]
+    },
+    {
+      "subheading": "Configuration Management Specifics",
+      "checklist": [
+        {
+          "name": "Files managed by configuration management have a comment saying they are",
+          "description": "When troubleshooting a server, you often look at config files. It is helpful to know that a given file comes from configuration management so that you can find its source and know that manual changes might get overridden"
         }
       ]
     }
