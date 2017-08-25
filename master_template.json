@@ -235,6 +235,9 @@
         {
           "name": "Files managed by configuration management have a comment saying they are",
           "description": "When troubleshooting a server, you often look at config files. It is helpful to know that a given file comes from configuration management so that you can find its source and know that manual changes might get overridden"
+        },
+        {
+          "name": "Terraform resources specify useful outputs for users of the system"
         }
       ]
     }
