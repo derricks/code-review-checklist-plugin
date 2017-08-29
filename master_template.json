@@ -238,6 +238,10 @@
         },
         {
           "name": "Terraform resources specify useful outputs for users of the system"
+        },
+        {
+          "name": "Literals in terraform modules make sense",
+          "description": "If a terraform resource is created with fixed values in a module (instead of passed-in variables), it may limit the ability to reuse the module. Literal values aren't necessarily bad, since they could encapsulate known tuning parameters. But they should be given an extra look."
         }
       ]
     }
