@@ -217,6 +217,9 @@
         },
         {
           "name": "Rolling back this change is well understood and documented"
+        },
+        {
+          "name": "A health check exists and incorporates the health of systems the program depends on"
         }
       ]
     },
