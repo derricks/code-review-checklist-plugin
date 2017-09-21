@@ -220,6 +220,10 @@
         },
         {
           "name": "A health check exists and incorporates the health of systems the program depends on"
+        },
+        {
+          "name": "Limits, thresholds, and other constraints can be tuned via config files or environment variables",
+          "description": "Changing any constraint that a program uses should be a config option, not in the source code. Number of connections, artificial throttles, and so on should all be tunable."
         }
       ]
     },
