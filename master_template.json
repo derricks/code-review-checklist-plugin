@@ -169,6 +169,10 @@
         },
         {
           "name": "Any magic numbers have been placed into constants or config parameters."
+        },
+        {
+          "name": "Unused variables or methods have been deleted",
+          "description": "When a variable isn't used, a code maintainer will waste time and mental space to figure that out while troubleshooting. Unused code imposes a maintenance burden and also increases the size of the file, inhibiting comprehension."
         }
       ]
     },
