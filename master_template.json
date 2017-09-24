@@ -255,6 +255,15 @@
           "description": "If a terraform resource is created with fixed values in a module (instead of passed-in variables), it may limit the ability to reuse the module. Literal values aren't necessarily bad, since they could encapsulate known tuning parameters. But they should be given an extra look."
         }
       ]
+    },
+    {
+      "subheading": "Synchronization Program Specifics",
+      "checklist": [
+        {
+          "name": "Configurable guard conditions prevent catastrophic changes",
+          "description": "Logic such as this is common in synchronization programs: Remove any data in the target system that's not in the source. However, any number of unforeseen conditions could create an empty data set from the source, which would then delete everything in the target. Consider having panic clauses if a changeset is too large."
+        }
+      ]
     }
 
   ]
