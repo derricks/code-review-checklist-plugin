@@ -64,6 +64,10 @@
         },
         {
           "name": "Methods are small enough to be easily grasped"
+        },
+        {
+          "name": "Regexes are commented with information about what they do",
+          "description": "It can be hard for people to pass even fairly simple regexes. While some probably are simple enough to be quickly understood, err on the side of adding a comment explaining what the matches should be."
         }
       ]
     },
