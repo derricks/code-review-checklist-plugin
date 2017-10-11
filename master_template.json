@@ -228,6 +228,10 @@
         {
           "name": "Limits, thresholds, and other constraints can be tuned via config files or environment variables",
           "description": "Changing any constraint that a program uses should be a config option, not in the source code. Number of connections, artificial throttles, and so on should all be tunable."
+        },
+        {
+          "name": "Query results are limited either with a LIMIT clause or in code",
+          "description": "Code that expects a small number of results can break if, for whatever reason, the results are suddenly much larger than expected. Use your database's LIMIT syntax or add a counting loop in your code."
         }
       ]
     },
