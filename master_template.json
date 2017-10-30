@@ -32,6 +32,10 @@
               {
                 "name": "In dynamic languages, types are encoded in function names",
                 "description": "If a language is dynamically typed, you can't always know what you should pass into a method, and you can't always know what type is expected when maintaining the method. Encoding the type name in the variable name can help understanding. See _Exploiting Type Hints in Method Argument Names to Improve Lightweight Type Inference_"
+              },
+              {
+                "name": "Changed names are changed everywhere they're used",
+                "description": "This will probably involve looking beyond the pull request diffs."
               }
           ]
         },
