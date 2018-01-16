@@ -228,6 +228,10 @@
           "name": "No paths point to user-specific directories or anything else that only exists on one machine"
         },
         {
+          "name": "Emails for notifications are aliases, not specific users",
+          "description": "If specific developers are set to receive email alerts from a system, and those developers leave, those emails will go unseen."
+        },
+        {
           "name": "Rolling back this change is well understood and documented"
         },
         {
