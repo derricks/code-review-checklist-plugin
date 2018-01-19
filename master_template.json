@@ -133,6 +133,10 @@
         {
           "name": "Code is backwards compatible with existing clients",
           "description": "When changing code, you can't always predict what clients are out there. By using default arguments or passing version numbers, you can still support outstanding clients."
+        },
+        {
+          "name": "Code that receives events from another system also has a periodic refresh",
+          "description": "Events sent from other systems get lost on the network, slip past handlers via race conditions, or silently disappear. Code that relies on those events should also have a periodic refresh of the full state."
         }
       ]
     },
