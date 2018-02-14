@@ -136,7 +136,7 @@
         },
         {
           "name": "Code that receives events from another system also has a periodic refresh",
-          "description": "Events sent from other systems get lost on the network, slip past handlers via race conditions, or silently disappear. Code that relies on those events should also have a periodic refresh of the full state."
+          "description": "Events sent from other systems get lost on the network, slip past handlers via race conditions, or silently disappear. Code that relies on those events should also have a periodic refresh of the full state.  "
         }
       ]
     },
@@ -248,6 +248,10 @@
         {
           "name": "Query results are limited either with a LIMIT clause or in code",
           "description": "Code that expects a small number of results can break if, for whatever reason, the results are suddenly much larger than expected. Use your database's LIMIT syntax or add a counting loop in your code."
+        }, 
+        {
+          "name": "Files that are opened are closed directly (rather than trusting garbage collection)",
+          "description": "When files are closed in garbage collection, you don't have control of when the close happens, which in turn means, with many open files, that you could exhaust the file handles allotted to you."
         }
       ]
     },
