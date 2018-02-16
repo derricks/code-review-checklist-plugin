@@ -200,6 +200,10 @@
           "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern. See Nygard's _Release It_"
         },
         {
+          "name": "Retry intervals have a randomized jitter added each time.",
+          "description": "When retrying a call to a service, if every client calls exactly 2 seconds later, the issue that caused the retry is more likely. Instead, retry with a random percentage added or subtracted from the base interval."
+        },
+        {
           "name": "Implications of caches going away are considered",
           "description": "If you cache data from a service, you have to consider the implications if the cache goes away. What will the performance of the application be while the cache is being rebuilt? What will load look like on the remote system if the cache needs to be refilled?"
         }
