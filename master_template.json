@@ -2,11 +2,11 @@
   "checklist": [
     {
       "name": "Commit messages conform to standards",
-      "description": "Well-formatted commit messages make it easy to scan commit history and provide clear, concise information to the reader."
+      "description": "Well-formatted commit messages make it easy to scan commit history by providing clear, concise information to the reader."
     },
     {
       "name": "Code conforms to the style of the code around it, regardless of a linter's view",
-      "description": "While style checks should generally be left to linters, code added into existing code should conform to that code's style, even if that doesn't conform to linter settings."
+      "description": "While style checks should generally be left to linters, new code should conform to the code's style, even if that doesn't conform to linter settings."
     },
     {
       "subheading": "Code comprehension",
@@ -15,55 +15,55 @@
           "subheading": "Names",
           "checklist": [
               {
-                "name": "All names are descriptive.",
-                "description": "Any names should be long enough to communicate what the element does but not so long as to look like noise. See _Debugging effort estimation using software metrics_ by Gorla, Benander, and Benander."
+                "name": "All names are descriptive",
+                "description": "Any names should be long enough to communicate what the element does but not so long as to be noise. See _Debugging effort estimation using software metrics_ by Gorla, Benander, and Benander and _What's In A Name_ by Lawrie, Morrell, Feild, and Binkley."
               },
               {
                 "name": "Names and comments do not include spelling mistakes"
               },
               {
-                "name": "Items that use amounts encode the unit of measurement.",
-                "description": "A variable named something such as timeout_seconds requires less digging around to figure out the unit."
+                "name": "Items that define amounts encode the unit of measurement",
+                "description": "A variable named timeout_seconds quickly communicates what the value represents."
               },
               {
                 "name": "Names do not use negatives",
-                "description": "Names such as 'should_not_process' and 'disabled' can be confusing when you're reading code such as 'if not disabled.' Avoid names that use negatives."
+                "description": "Names such as 'should_not_process' and 'disabled' can be confusing when you're reading code such as 'if not should_not_process.'"
               },
               {
-                "name": "In dynamic languages, types are encoded in function names",
-                "description": "If a language is dynamically typed, you can't always know what you should pass into a method, and you can't always know what type is expected when maintaining the method. Encoding the type name in the variable name can help understanding. See _Exploiting Type Hints in Method Argument Names to Improve Lightweight Type Inference_"
+                "name": "In dynamic languages, types are encoded in argument names",
+                "description": "If a language is dynamically typed, you can't always know what you should pass into a method, and you can't always know what type is expected when maintaining the method. Encoding the type name in the variable name can help understanding. See _Exploiting Type Hints in Method Argument Names to Improve Lightweight Type Inference_ by Milojkovic, Ghafari, and Nierstrasz."
               },
               {
-                "name": "Changed names are changed everywhere they're used",
+                "name": "Names that are changing are changed everywhere in the code base",
                 "description": "This will probably involve looking beyond the pull request diffs."
               }
           ]
         },
         {
           "name": "Methods either do one thing or orchestrate other methods",
-          "description": "It's easy to let methods grow as you code. But small, simple methods are easier to debug and easier to write tests for. Methods should do one concrete thing, or they should be a way to orchestrate other methods."
+          "description": "Methods can quickly grow as you code. But small, simple methods are easier to debug and easier to write tests for. Methods should do one concrete thing, or they should be a way to orchestrate other methods."
         },
         {
           "name": "Methods neither define nor use ambiguous booleans",
-          "description": "Consider the code snippet \"setWindowSize(100,100,true).\" If you are debugging in that code, you will need to figure out what that third argument is as part of your work. As the implementer of that method, you can use constants, enums, or named variables. As the client, you can use constants to produce something like \"setWindowSize(100,100,IMMEDIATE_REDRAW)\""
+          "description": "Consider the code snippet \"setWindowSize(100,100,true).\" If you are debugging in that code, you will need to figure out what that third argument is as part of your work. As the implementer of that method, you should use constants, enums, or named variables. As the client, you should use constants to produce something like \"setWindowSize(100,100,IMMEDIATE_REDRAW)\""
         },
         {
           "name": "Complex boolean checks are moved to methods that describe the total effect",
           "description": "Consider the code \"if !variable1 && (variable2 || variable3.property).\" This takes a while for a reader to parse. You can move it in to some well-named method such as \"isValidTableItem()\" so that the reader can quickly comprehend what you're trying to check."
         },
         {
-          "name": "Data is immutable wherever possible.",
+          "name": "Data is immutable wherever possible",
           "description": "Data that is guaranteed to never change is thread-safe and easier to reason about when debugging."
         },
         {
-          "name": "Opened streams are closed by the same code that opens them."
+          "name": "Streams are closed by the same code that opens them"
         },
         {
           "name": "Constants are namespaced appropriately",
-          "description": "Multiple sources could define constants with the same name, depending on the language, so be explicit about where the constant is coming from"
+          "description": "Multiple sources could define constants with the same name, depending on the language, so be explicit about where the constant is coming from."
         },
         {
-          "name": "Overly branched code is broken into methods.",
+          "name": "Overly branched code is broken into methods",
           "description": "Nested ifs, for loops, and callback functions can often be moved into standalone methods that are descriptively named. Your preferred depth of branching will vary (and can often be captured with a linter that checks McCabe or NPath complexity), but generally fewer branches in a block of code makes it easier to understand."
         },
         {
@@ -71,7 +71,7 @@
         },
         {
           "name": "Regexes are commented with information about what they do",
-          "description": "It can be hard for people to pass even fairly simple regexes. While some probably are simple enough to be quickly understood, err on the side of adding a comment explaining what the matches should be."
+          "description": "It can be hard for people to understand even fairly simple regexes. While some probably are simple enough to be quickly understood, err on the side of adding a comment explaining what the matches should be."
         }
       ]
     },
@@ -80,19 +80,15 @@
       "subheading": "Defensive coding",
       "checklist": [
         {
-          "name": "Public methods check the validity of all their arguments at the beginning of the method.",
-          "description": "Public methods have to act defensively and assume they'll get passed any range of garbage values. Checking early means that no state changes happen unless the input is all valid."
+          "name": "Public methods check the validity of all their arguments at the beginning of the method",
+          "description": "Public methods have to act defensively and assume they'll get passed garbage values. Checking early means that no state changes happen unless the input is all valid."
         },
         {
-          "name": "Methods fail fast if data is invalid.",
-          "description": "Check all incoming data before doing any work; that way you ensure that nothing is left in an odd state if one piece of data is valid but another is not."
+          "name": "Switch statements or if/else blocks always handle the default case",
+          "description": "When handling multiple conditions in an if statement or switch statement, handling the default case -- even by throwing an error -- ensures that your code will behave as you expect even if the inputs change."
         },
         {
-          "name": "Switch statements or if/else if blocks always handle the default case",
-          "description": "When handling multiple conditions in an if statement or switch statement, handling the default case -- even if it's to throw an error -- ensures that your code will behave as you expect even if the inputs change."
-        },
-        {
-          "name": "All arguments passed to functions are used or prefixed with underscore",
+          "name": "All arguments passed to functions are either used or prefixed with underscore",
           "description": "If you pass an argument to a method but never use it, it adds context a reader doesn't really need, and is also a variable in an uncertain state. Someone who goes to use it later may find that it's often null or invalid. If a method is implementing some contract, unused variables can be prefixed with underscore to indicate they're unused."
         },
         {
@@ -104,11 +100,11 @@
           "description": "Failing to pin a version for a dependency could cause a new, broken version to get imported before you've had a chance to test it with your code"
         },
         {
-          "name": "Mutable data shared across threads is protected from concurrent modifications.",
+          "name": "Mutable data shared across threads is protected from concurrent modifications",
           "description": "Whenever you have data that can be changed by different threads, you need to use your language's constructs to prevent concurrent modifications."
         },
         {
-          "name": "Public methods do not let mutable copies of state data escape.",
+          "name": "Public methods do not let mutable copies of state data escape",
           "description": "If a method returns data maintained by the object, it should return an immuatable form so that clients can not manipulate the object's own data. Ideally, no returned data is mutable, because then client code can predict its state as well, but this may be harder to enforce."
         },
         {
@@ -116,19 +112,19 @@
           "description": "If you're waiting on some other thread or process to finish, your code should have a timeout so it doesn't wait indefinitely if the other code gets hung up. See Nygard's _Release It_"
         },
         {
-          "name": "Possible errors are handled or are passed to the client with useful context"
+          "name": "Possible errors are handled or are passed back to the client with useful context"
         },
         {
           "name": "Exceptions do not die silently",
           "description": "It's not uncommon to catch a seemingly innocuous error (InterruptedException in Java, for example) and do nothing with it. But an exception should, at a minimum, put out a log message saying it was tripped."
         },
         {
-          "name": "Code does not assume temp files are around even for the life of the code that uses them.",
+          "name": "Code does not assume temp files are around even for the life of the code that uses them",
           "description": "Temp files can go away for any number of reasons, up to and including a person in operations clearing out disk space from /tmp due to a disk full alert. You should always assume your temp files can go away and handle that case."
         },
         {
           "name": "Recursive functions define an end state that is reached within a reasonable time",
-          "description": "Recursion is a powerful tool for simplifying code, but without an end state, they can run until they get a stack overflow. Make sure that you understand how the recursion will end, and make sure it will hit that end state within the bounds of the programming environment (which will vary -- tail-recursive functions in Erlang can go on forever!)"
+          "description": "Recursion is a powerful tool for simplifying code, but without an end state, a recursive block can run until it gets a stack overflow. Make sure that you understand how the recursion will end, and make sure it will hit that end state within the bounds of the programming environment (which will vary -- tail-recursive functions in Erlang can go on forever!)"
         },
         {
           "name": "Code is backwards compatible with existing clients",
@@ -147,7 +143,7 @@
           "name": "There are tests"
         },
         {
-          "name": "Every exit path from the code under test has a test case.",
+          "name": "Every exit path from the code under test has a test case",
           "description": "It is often tempting to only write a test for the happy path, or a known error, or some other shortcut. Tests should cover all the possible paths the code might take."
         },
         {
@@ -155,7 +151,7 @@
         },
         {
           "name": "There are no obvious bugs in the tests",
-          "description": "Test code does not, itself, have tests, so it relies on extra vigilance from reviewers."
+          "description": "Test code does not itself have tests, so it relies on extra vigilance from reviewers."
         }
       ]
 
@@ -176,11 +172,11 @@
           "description": "When a todo becomes irrelevant, either because it's done or made obsolete, remove the todo from your code and any tracking system."
         },
         {
-          "name": "Function arguments are not themselves calls to other functions.",
+          "name": "Function arguments are not themselves calls to other functions",
           "description": "A code snippet that looks like this: a(b(c(2))) is very hard to debug and comprehend. Instead, put each function result into a temporary, well-named variable."
         },
         {
-          "name": "Any magic numbers have been placed into constants or config parameters."
+          "name": "Any magic numbers have been placed into constants or config parameters"
         },
         {
           "name": "Unused variables or methods have been deleted",
@@ -193,15 +189,15 @@
       "checklist": [
         {
           "name": "Open connections are closed in the same place",
-          "description": "If you open a connection, you should close it. And you should close it in the same block of code that opens it (versus, say, passing it to another method). Use your language's equivalent of Java's finally block"
+          "description": "If you open a connection, you should close it. And you should close it in the same block of code that opens it (versus, say, passing it to another method, the exception being go's use of defer). Use your language's equivalent of Java's finally block"
         },
         {
-          "name": "Calls to remote services at a minimum have a timeout.",
+          "name": "Calls to remote services at a minimum have a timeout",
           "description": "Any time you pause your program to do something -- wait on a thread or call to a remote service -- you should protect your code with a timeout at a minimum. Even better is the so-called circuit breaker pattern. See Nygard's _Release It_"
         },
         {
-          "name": "Retry intervals have a randomized jitter added each time.",
-          "description": "When retrying a call to a service, if every client calls exactly 2 seconds later, the issue that caused the retry is more likely. Instead, retry with a random percentage added or subtracted from the base interval."
+          "name": "Retry intervals have a randomized jitter added each time",
+          "description": "When retrying a call to a service, if every client calls exactly 2 seconds later, the issue that caused the retry is more likely to recur. Instead, retry with a random percentage added or subtracted from the base interval."
         },
         {
           "name": "Implications of caches going away are considered",
@@ -221,7 +217,7 @@
           "description": "Any significant feature should have metrics around it to allow for proper monitoring"
         },
         {
-          "name": "Storage that's appended to has a retention plan.",
+          "name": "Storage has a retention plan",
           "description": "If the code appends to some sort of storage -- adding a line to a file, say, or adding a row to a database -- what is the retention policy for that data? Storage that grows and grows can cause operational headaches and system failures."
         },
         {
@@ -254,7 +250,7 @@
           "description": "Code that expects a small number of results can break if, for whatever reason, the results are suddenly much larger than expected. Use your database's LIMIT syntax or add a counting loop in your code."
         }, 
         {
-          "name": "Files that are opened are closed directly (rather than trusting garbage collection)",
+          "name": "Files that are opened are closed directly (rather than trusting garbage collection and destructors)",
           "description": "When files are closed in garbage collection, you don't have control of when the close happens, which in turn means, with many open files, that you could exhaust the file handles allotted to you."
         }
       ]
@@ -263,7 +259,7 @@
       "subheading": "Java Specifics",
       "checklist": [
         {
-          "name": "Needless boxing and unboxing is removed.",
+          "name": "Needless boxing and unboxing is removed",
           "description": "Boxing variables, where a primitive is wrapped in the corresponding Object, can cause performance issues in a production system."
         }
       ]
@@ -272,8 +268,8 @@
       "subheading": "Configuration Management Specifics",
       "checklist": [
         {
-          "name": "Files managed by configuration management have a comment saying they are",
-          "description": "When troubleshooting a server, you often look at config files. It is helpful to know that a given file comes from configuration management so that you can find its source and know that manual changes might get overridden"
+          "name": "Files managed by configuration management have a comment saying that",
+          "description": "When troubleshooting a server, you often look at config files. It is helpful to know that a given file comes from configuration management so that you can find its source and know that manual changes might get overridden."
         },
         {
           "name": "Terraform resources specify useful outputs for users of the system"
