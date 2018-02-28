@@ -252,6 +252,9 @@
         {
           "name": "Files that are opened are closed directly (rather than trusting garbage collection and destructors)",
           "description": "When files are closed in garbage collection, you don't have control of when the close happens, which in turn means, with many open files, that you could exhaust the file handles allotted to you."
+        },
+        {
+          "name": "Connections are pooled to prevent overwhelming upstream services"
         }
       ]
     },
@@ -288,7 +291,20 @@
           "description": "Logic such as this is common in synchronization programs: Remove any data in the target system that's not in the source. However, any number of unforeseen conditions could create an empty data set from the source, which would then delete everything in the target. Consider having panic clauses if a changeset is too large."
         }
       ]
+    },
+    {
+      "subheading": "ETL Specifics",
+      "checklist": [
+        {
+          "name": "Bulk load logic has checkpoints it can restart from",
+          "description": "Jobs fail; the code should set periodic checkpoints so that when it fails it can pick up from where it left off"
+        },
+        {
+          "name": "Duplicate data either can't exist or its implications are well understood",
+          "description": "If jobs fail, there is the chance of duplicated data. If records have known IDs, they can be replaced or upserted, but if there is no way to identify a duplciate, there is the chance they will happen."
+        }
+      ]
     }
 
-  ]
+  ] 
 }
