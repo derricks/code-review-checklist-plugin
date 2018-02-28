@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Code Review Checklist",
   "description": "Maintain checklists derived from a template to make code reviews more efficient and effective",
-  "version":"0.9.7",
+  "version":"0.9.8",
   "browser_action": {
     "default_popup": "per_checklist_ui.html"
   },
