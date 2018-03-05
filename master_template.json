@@ -202,6 +202,9 @@
         {
           "name": "Implications of caches going away are considered",
           "description": "If you cache data from a service, you have to consider the implications if the cache goes away. What will the performance of the application be while the cache is being rebuilt? What will load look like on the remote system if the cache needs to be refilled?"
+        },
+        {
+          "name": "Connections are pooled to prevent overwhelming upstream services"
         }
       ]
     },
@@ -252,9 +255,6 @@
         {
           "name": "Files that are opened are closed directly (rather than trusting garbage collection and destructors)",
           "description": "When files are closed in garbage collection, you don't have control of when the close happens, which in turn means, with many open files, that you could exhaust the file handles allotted to you."
-        },
-        {
-          "name": "Connections are pooled to prevent overwhelming upstream services"
         }
       ]
     },
