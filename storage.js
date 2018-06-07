@@ -31,7 +31,7 @@ const storage = {
           // once json is loaded, overlay storage item
           storage.getStorageArea().get(url, checklistData => {
             const mergedJson = storage.mergeChecklistOntoMaster(checklistData[url], json);
-            checklistCallback({checklist: mergedJson});
+            checklistCallback({checklist: mergedJson, notes: checklistData[url] && checklistData[url]['notes'] ? checklistData[url]['notes'] : '' });
           });
        }));
    },

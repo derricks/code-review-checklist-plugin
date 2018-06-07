@@ -3,16 +3,23 @@
     <link rel="stylesheet" type="text/css" href="checklist.css">
   </head>
   <body>
-    <div>
-      <h2 class="remindersHeading">Things to keep in mind</h2>
-      <ul>
-        <li class="remindersText">If you don't understand something, it's the writer's bug, not yours.</li>
-        <li class="remindersText">Code reviews are as much about communication as they are about finding defects.</li>
-        <li class="remindersText">Keep your tone respectful.</li>
-        <li class="remindersText">Code reviews shouldn't be style checks. That's what linters are for.</li>
-      </ul>
+    <div style="width: 400px">
+      <div>
+        <h2 class="remindersHeading">Things to keep in mind</h2>
+        <ul>
+          <li class="remindersText">If you don't understand something, it's the writer's bug, not yours.</li>
+          <li class="remindersText">Code reviews are as much about communication as they are about finding defects.</li>
+          <li class="remindersText">Keep your tone respectful.</li>
+          <li class="remindersText">Code reviews shouldn't be style checks. That's what linters are for.</li>
+        </ul>
+      </div>
+      <div>
+         Enter any notes for yourself about the review here
+         <br />
+         <textarea id="notes" style="width:100%;" ></textarea>
+      </div>
+      <div id="checklist" style="width:100%;"></div>
     </div>
-    <div id="checklist" style="width: 400px;"></div>
     <script src="storage.js"></script>
     <script src="loadChecklist.js"></script>
     <script src="initUI.js"></script>
