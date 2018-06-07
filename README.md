@@ -1,4 +1,4 @@
-Code Revew Checklist Plugin
+Code Review Checklist Plugin
 ===========================
 
 The most effective and efficient way to do a code review is to have a checklist listing common gotchas.
