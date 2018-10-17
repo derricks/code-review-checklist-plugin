@@ -112,6 +112,10 @@
           "description": "If you're waiting on some other thread or process to finish, your code should have a timeout so it doesn't wait indefinitely if the other code gets hung up. See Nygard's _Release It_"
         },
         {
+          "name": "Waiting for some event to happen is done with a conditional rather than a simple sleep",
+          "description": "A command such as \"sleep 5\" that is there simply to make time pass while something else happens (a process starting, say) could cause unpredictable behaviors if the expected event takes longer than was budgeted. It's better to loop (with a max wait interval) and check for the condition you care about."
+        },
+        {
           "name": "Possible errors are handled or are passed back to the client with useful context"
         },
         {
