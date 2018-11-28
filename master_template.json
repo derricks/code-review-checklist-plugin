@@ -100,6 +100,10 @@
           "description": "Failing to pin a version for a dependency could cause a new, broken version to get imported before you've had a chance to test it with your code"
         },
         {
+          "name": "Any library changes have been vetted",
+          "description": "When you change library versions, you introduce changes beyond your code. If that change isn't vetted, you open yourself to unexpected bugs."
+        },        
+        {
           "name": "Mutable data shared across threads is protected from concurrent modifications",
           "description": "Whenever you have data that can be changed by different threads, you need to use your language's constructs to prevent concurrent modifications."
         },
@@ -137,6 +141,9 @@
         {
           "name": "Code that receives events from another system also has a periodic refresh",
           "description": "Events sent from other systems get lost on the network, slip past handlers via race conditions, or silently disappear. Code that relies on those events should also have a periodic refresh of the full state.  "
+        },
+        {
+          "name": "The effect of schema changes are fully understood"
         }
       ]
     },
