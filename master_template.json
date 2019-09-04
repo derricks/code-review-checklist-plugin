@@ -120,6 +120,10 @@
           "description": "A command such as \"sleep 5\" that is there simply to make time pass while something else happens (a process starting, say) could cause unpredictable behaviors if the expected event takes longer than was budgeted. It's better to loop (with a max wait interval) and check for the condition you care about."
         },
         {
+          "name": "Regular expressions are as specific as possible",
+          "description": "If a regular expression is too permissive, you may find yourself matching against items you don't expect, causing problems in your logic"
+        },
+        {
           "name": "Possible errors are handled or are passed back to the client with useful context"
         },
         {
